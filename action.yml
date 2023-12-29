@@ -8,6 +8,7 @@ runs:
 
     - name: Move artifact
       run: cp -a artifact/. ./
+    shell: bash
 
     - name: Publish package distributions to GitHub Releases
       uses: python-semantic-release/upload-to-gh-release@0f96c02a48278aff14251e9f1a0d73122a8c638b
