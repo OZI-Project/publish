@@ -1,5 +1,9 @@
 name: ozi-publish
 description: "OZI publish action."
+inputs:
+  github-token:
+    description: "GitHub workflow-generated token."
+    required: true
 runs:
   using: "composite"
   steps:
@@ -13,7 +17,7 @@ runs:
     - name: Publish package distributions to GitHub Releases
       uses: python-semantic-release/upload-to-gh-release@0f96c02a48278aff14251e9f1a0d73122a8c638b
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ inputs.github-token }}
 
     - name: Publish package distributions to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
