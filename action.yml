@@ -1,0 +1,18 @@
+name: ozi-publish
+description: "OZI publish action."
+runs:
+  using: "composite"
+  steps:
+
+    - uses: actions/download-artifact@v4
+
+    - name: Move artifact
+      run: cp -a artifact/. ./
+
+    - name: Publish package distributions to GitHub Releases
+      uses: python-semantic-release/upload-to-gh-release@0f96c02a48278aff14251e9f1a0d73122a8c638b
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Publish package distributions to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
