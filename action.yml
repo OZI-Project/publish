@@ -4,6 +4,12 @@ inputs:
   github-token:
     description: "GitHub workflow-generated token."
     required: true
+  ssh-public:
+    description: "SSH public commit signing key"
+    required: true
+  ssh-private:
+    description: "SSH private commit signing key"
+    required: true
 runs:
   using: "composite"
   steps:
@@ -21,6 +27,8 @@ runs:
       uses: python-semantic-release/upload-to-gh-release@0f96c02a48278aff14251e9f1a0d73122a8c638b
       with:
         github_token: ${{ inputs.github-token }}
+        ssh_public_signing_key: ${{ inputs.ssh-public }}
+        ssh_private_signing_key: ${{ inputs.ssh-private }}
 
     - name: Publish package distributions to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
