@@ -1,0 +1,46 @@
+name: ozi-publish
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+on:
+  workflow_call:
+    inputs:
+      github-token:
+        description: "GitHub workflow-generated token."
+        required: true
+        type: string
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: write
+      id-token: write
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@eb238b55efaa70779f274895e782ed17c84f2895 # v2.6.1
+        with:
+          disable-sudo: true
+          egress-policy: block
+          allowed-endpoints: >
+            api.github.com:443
+            upload.pypi.org:443
+            uploads.github.com:443
+
+      - uses: actions/download-artifact@v4
+  
+      - name: Move artifact
+        run: cp -a artifact/. ./
+        shell: bash
+  
+      - name: Publish package distributions to GitHub Releases
+        uses: python-semantic-release/upload-to-gh-release@0f96c02a48278aff14251e9f1a0d73122a8c638b
+        with:
+          github_token: ${{ inputs.github-token }}
+  
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
