@@ -38,7 +38,7 @@ jobs:
         shell: bash
   
       - name: Publish package distributions to GitHub Releases
-        uses: python-semantic-release/upload-to-gh-release@d69c4eec4b072c8a9f80ebd1b1d03ede5a4bc625
+        uses: python-semantic-release/upload-to-gh-release@c7c3b69570cbd3011111d2673d8f07142473a871
         with:
           github_token: ${{ inputs.github-token }}
   
