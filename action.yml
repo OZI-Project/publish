@@ -14,7 +14,7 @@ runs:
       shell: bash
 
     - name: Publish package distributions to GitHub Releases
-      uses: python-semantic-release/upload-to-gh-release@ab38ab601e1cc0a20e26d1ab089e0b9d40d7faf0
+      uses: python-semantic-release/upload-to-gh-release@fe6cc89b43d8cbf0f9ce3285df3f77ff69c9b5d4
       with:
         github_token: ${{ inputs.github-token }}
 
