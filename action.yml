@@ -19,4 +19,4 @@ runs:
         github_token: ${{ inputs.github-token }}
 
     - name: Publish package distributions to PyPI
-      uses: pypa/gh-action-pypi-publish@67339c736fd9354cd4f8cb0b744f2b82a74b5c70
+      uses: pypa/gh-action-pypi-publish@fb13cb306901256ace3dab689990e13a5550ffaa
