@@ -17,6 +17,3 @@ runs:
       uses: python-semantic-release/publish-action@v9.15.1
       with:
         github_token: ${{ inputs.github-token }}
-
-    - name: Publish package distributions to PyPI
-      uses: pypa/gh-action-pypi-publish@fb13cb306901256ace3dab689990e13a5550ffaa
