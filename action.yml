@@ -16,6 +16,7 @@ runs:
       shell: bash
 
     - name: Publish package distributions to GitHub Releases
+      # IMPORTANT: this cannot be pinned to a hash in publish
       uses: python-semantic-release/publish-action@v9.17.0
       with:
         github_token: ${{ inputs.github-token }}
