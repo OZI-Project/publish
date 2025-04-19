@@ -34,3 +34,4 @@ runs:
       run: gh pr create -B ${{ steps.head.outputs.name }} -H ${{ github.head_ref || github.ref_name }} --title 'Merge ${{ github.head_ref || github.ref_name }} into ${{ steps.head.outputs.name }}' --body 'Created automatically. Manually close and reopen to enable checks.'
       env:
           GITHUB_TOKEN: ${{ inputs.github-token }}
+      shell: bash
