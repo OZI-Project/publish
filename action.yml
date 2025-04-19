@@ -4,6 +4,9 @@ inputs:
   github-token:
     description: "GitHub workflow-generated token."
     required: true
+  create-pull-request:
+    description: "Create a pull request on the default branch."
+    default: false
 runs:
   using: "composite"
   steps:
@@ -19,3 +22,15 @@ runs:
       uses: python-semantic-release/publish-action@9747ce2b9d2004be1341bfe05e04bcffa29994b0
       with:
         github_token: ${{ inputs.github-token }}
+
+    - name: Get HEAD branch name
+      id: head
+      if: ${{ fromJSON(inputs.create-pull-request) == true }}
+      run: git remote show origin | grep 'HEAD branch' | cut -d ":" -f2 | sed 's/ /name=/' >> $GITHUB_OUTPUT
+      shell: bash
+
+    - name: Create pull request
+      if: ${{ fromJSON(inputs.create-pull-request) == true }}
+      run: gh pr create -B ${{ steps.head.outputs.name }} -H ${{ github.head_ref || github.ref_name }} --title 'Merge ${{ github.head_ref || github.ref_name }} into ${{ steps.head.outputs.name }}' --body 'Created automatically. Manually close and reopen to enable checks.'
+      env:
+          GITHUB_TOKEN: ${{ inputs.github-token }}
