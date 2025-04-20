@@ -7,6 +7,9 @@ inputs:
   create-pull-request:
     description: "Create a pull request on the default branch."
     default: false
+  pull-request-body:
+    description: "Text to use for the pull request body."
+    default: "Created automatically. Manually close and reopen to enable checks."
 runs:
   using: "composite"
   steps:
@@ -31,7 +34,7 @@ runs:
 
     - name: Create pull request
       if: ${{ fromJSON(inputs.create-pull-request) == true }}
-      run: gh pr create -B ${{ steps.head.outputs.name }} -H ${{ github.head_ref || github.ref_name }} --title 'Merge ${{ github.head_ref || github.ref_name }} into ${{ steps.head.outputs.name }}' --body 'Created automatically. Manually close and reopen to enable checks.'
+      run: gh pr create -B ${{ steps.head.outputs.name }} -H ${{ github.head_ref || github.ref_name }} --title 'Merge ${{ github.head_ref || github.ref_name }} into ${{ steps.head.outputs.name }}' --body '${{ inputs.pull-request-body }}'
       env:
           GITHUB_TOKEN: ${{ inputs.github-token }}
       shell: bash
