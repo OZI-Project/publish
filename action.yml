@@ -22,7 +22,7 @@ runs:
       shell: bash
 
     - name: Publish package distributions to GitHub Releases
-      uses: python-semantic-release/publish-action@9747ce2b9d2004be1341bfe05e04bcffa29994b0
+      uses: python-semantic-release/publish-action@1aa9f41fac5d531e6764e1991b536783337f3a56
       with:
         github_token: ${{ inputs.github-token }}
 
