@@ -34,7 +34,10 @@ runs:
 
     - name: Create pull request
       if: ${{ fromJSON(inputs.create-pull-request) == true }}
-      run: gh pr create -B ${{ steps.head.outputs.name }} -H ${{ github.head_ref || github.ref_name }} --title 'Merge ${{ github.head_ref || github.ref_name }} into ${{ steps.head.outputs.name }}' --body '${{ inputs.pull-request-body }}'
+      run: gh pr create -B $HEAD_BRANCH -H $REF_NAME --title 'Merge $REF_NAME into $HEAD_BRANCH' --body '$PR_BODY'
       env:
+          HEAD_BRANCH: ${{ steps.head.outputs.name }}
+          REF_NAME: ${{ github.head_ref || github.ref_name }}
+          PR_BODY: ${{ inputs.pull-request-body }}
           GITHUB_TOKEN: ${{ inputs.github-token }}
       shell: bash
