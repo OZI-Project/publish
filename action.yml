@@ -1,9 +1,10 @@
-name: ozi-publish
+name: OZI Publish
 description: "OZI publish action."
 inputs:
   github-token:
     description: "GitHub workflow-generated token."
-    required: true
+    required: false
+    default: ${{ github.token }}
   create-pull-request:
     description: "Create a pull request on the default branch."
     default: false
