@@ -32,8 +32,12 @@ runs:
       run: git remote show origin | grep 'HEAD branch' | cut -d ":" -f2 | sed 's/ /name=/' >> $GITHUB_OUTPUT
       shell: bash
 
+    - if: ${{ fromJSON(inputs.create-pull-request) == true && steps.head.outputs.name == github.ref_name }}
+      run: echo 'already in HEAD branch no pull request will be created'
+      shell: bash
+
     - name: Create pull request
-      if: ${{ fromJSON(inputs.create-pull-request) == true }}
+      if: ${{ fromJSON(inputs.create-pull-request) == true && steps.head.outputs.name != github.ref_name }}
       run: gh pr create -B $HEAD_BRANCH -H $REF_NAME --title "Merge $REF_NAME into $HEAD_BRANCH" --body "$PR_BODY"
       env:
           HEAD_BRANCH: ${{ steps.head.outputs.name }}
