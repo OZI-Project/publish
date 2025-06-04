@@ -1,5 +1,8 @@
 name: OZI Publish
 description: "OZI publish action."
+branding:
+  icon: 'gift'
+  color: 'yellow'
 inputs:
   github-token:
     description: "GitHub workflow-generated token."
